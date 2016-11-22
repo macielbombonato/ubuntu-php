@@ -4,22 +4,22 @@ MAINTAINER Maciel Escudero Bombonato <maciel.bombonato@gmail.com>
 
 RUN apt-get update
 
-RUN apt-get install -y --force-yes apt-utils
-RUN apt-get install -y --force-yes git
-RUN apt-get install -y --force-yes nodejs
-RUN apt-get install -y --force-yes nodejs-legacy
-RUN apt-get install -y --force-yes npm
+RUN apt-get install -y apt-utils
+RUN apt-get install -y git
+RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs-legacy
+RUN apt-get install -y npm
 RUN npm install -g bower
 RUN npm install -g gulp
 
 # Install software-properties-common to access add-apt-repository and curl
-RUN apt-get install -y --force-yes software-properties-common
-RUN apt-get install -y --force-yes curl
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y curl
 
 # Install Nginx.
 RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
-RUN apt-get install -y --force-yes nginx
+RUN apt-get install -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN mkdir -p /var/www/html/app/webroot && \
 RUN chown -R www-data:www-data /var/www
@@ -28,18 +28,18 @@ RUN chown -R www-data:www-data /var/www
 RUN add-apt-repository -y ppa:ondrej/php5-5.6
 RUN apt-get update
 
-RUN apt-get install -y --force-yes php5-gd
-RUN apt-get install -y --force-yes php5-cli
-RUN apt-get install -y --force-yes php5-fpm
-RUN apt-get install -y --force-yes php5-curl
-RUN apt-get install -y --force-yes php5-intl
-RUN apt-get install -y --force-yes php5-geoip
-RUN apt-get install -y --force-yes php5-mysql
-RUN apt-get install -y --force-yes php5-pgsql
-RUN apt-get install -y --force-yes php5-mcrypt
-RUN apt-get install -y --force-yes php5-redis
-RUN apt-get install -y --force-yes php5-sqlite
-RUN apt-get install -y --force-yes php5-xdebug
+RUN apt-get install -y php5-gd
+RUN apt-get install -y php5-cli
+RUN apt-get install -y php5-fpm
+RUN apt-get install -y php5-curl
+RUN apt-get install -y php5-intl
+RUN apt-get install -y php5-geoip
+RUN apt-get install -y php5-mysql
+RUN apt-get install -y php5-pgsql
+RUN apt-get install -y php5-mcrypt
+RUN apt-get install -y php5-redis
+RUN apt-get install -y php5-sqlite
+RUN apt-get install -y php5-xdebug
 
 RUN sed -i "s/;daemonize\s*=\s*yes/daemonize = no/" /etc/php5/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo = 0/" /etc/php5/fpm/php.ini
