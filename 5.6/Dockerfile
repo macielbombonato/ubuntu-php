@@ -35,6 +35,7 @@ RUN apt-get install -y --allow-unauthenticated php5.6-redis
 RUN apt-get install -y --allow-unauthenticated php5.6-sqlite
 RUN apt-get install -y --allow-unauthenticated php5.6-xdebug
 RUN apt-get install -y --allow-unauthenticated php5.6-mbstring
+RUN apt-get install -y --allow-unauthenticated php5.6-xml
 
 RUN sed -i "s/;daemonize\s*=\s*yes/daemonize = no/" /etc/php/5.6/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo = 0/" /etc/php/5.6/fpm/php.ini
@@ -70,8 +71,8 @@ RUN echo "xdebug.remote_connect_back=on" >> /etc/php/5.6/mods-available/xdebug.i
 EXPOSE 80
 
 # Clean temp and cache
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get clean
+#RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Define default command.
 CMD service php5.6-fpm start && nginx
