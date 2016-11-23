@@ -19,33 +19,32 @@ RUN apt-get install -y --allow-unauthenticated curl
 
 RUN apt-get install -y --allow-unauthenticated nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-RUN mkdir -p /var/www/html/app/webroot 
+RUN mkdir -p /var/www/html/app/webroot
 RUN chown -R www-data:www-data /var/www
 
-RUN apt-get install -y --allow-unauthenticated php5.6-gd
-RUN apt-get install -y --allow-unauthenticated php5.6-cli
-RUN apt-get install -y --allow-unauthenticated php5.6-fpm
-RUN apt-get install -y --allow-unauthenticated php5.6-curl
-RUN apt-get install -y --allow-unauthenticated php5.6-intl
-RUN apt-get install -y --allow-unauthenticated php5.6-geoip
-RUN apt-get install -y --allow-unauthenticated php5.6-mysql
-RUN apt-get install -y --allow-unauthenticated php5.6-pgsql
-RUN apt-get install -y --allow-unauthenticated php5.6-mcrypt
-RUN apt-get install -y --allow-unauthenticated php5.6-redis
-RUN apt-get install -y --allow-unauthenticated php5.6-sqlite
-RUN apt-get install -y --allow-unauthenticated php5.6-xdebug
-RUN apt-get install -y --allow-unauthenticated php5.6-mbstring
+RUN apt-get install -y --allow-unauthenticated php-gd
+RUN apt-get install -y --allow-unauthenticated php-cli
+RUN apt-get install -y --allow-unauthenticated php-fpm
+RUN apt-get install -y --allow-unauthenticated php-curl
+RUN apt-get install -y --allow-unauthenticated php-intl
+RUN apt-get install -y --allow-unauthenticated php-geoip
+RUN apt-get install -y --allow-unauthenticated php-mysql
+RUN apt-get install -y --allow-unauthenticated php-pgsql
+RUN apt-get install -y --allow-unauthenticated php-mcrypt
+RUN apt-get install -y --allow-unauthenticated php-redis
+RUN apt-get install -y --allow-unauthenticated php-xdebug
+RUN apt-get install -y --allow-unauthenticated php-mbstring
 
-RUN sed -i "s/;daemonize\s*=\s*yes/daemonize = no/" /etc/php/5.6/fpm/php-fpm.conf
-RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo = 0/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/memory_limit\s*=\s*128M/memory_limit = 256M/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/max_execution_time\s*=\s*30/max_execution_time = 300/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/;request_terminate_timeout\s*=\s*0/request_terminate_timeout = 300/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/error_reporting\s*=\s*E_ALL\s*&\s*~E_DEPRECATED\s*&\s*~E_STRICT/error_reporting = E_ALL/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/display_errors\s*=\s*Off/display_errors = On/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/display_startup_errors\s*=\s*Off/display_startup_errors = On/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/track_errors\s*=\s*Off/track_errors = On/" /etc/php/5.6/fpm/php.ini
-RUN sed -i "s/session.gc_probability\s*=\s*0/session.gc_probability = 1/" /etc/php/5.6/fpm/php.ini
+RUN sed -i "s/;daemonize\s*=\s*yes/daemonize = no/" /etc/php/7.0/fpm/php-fpm.conf
+RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo = 0/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/memory_limit\s*=\s*128M/memory_limit = 256M/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/max_execution_time\s*=\s*30/max_execution_time = 300/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/;request_terminate_timeout\s*=\s*0/request_terminate_timeout = 300/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/error_reporting\s*=\s*E_ALL\s*&\s*~E_DEPRECATED\s*&\s*~E_STRICT/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/display_errors\s*=\s*Off/display_errors = On/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/display_startup_errors\s*=\s*Off/display_startup_errors = On/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/track_errors\s*=\s*Off/track_errors = On/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/session.gc_probability\s*=\s*0/session.gc_probability = 1/" /etc/php/7.0/fpm/php.ini
 
 # Install GeoIP Cities light
 RUN mkdir -pv /usr/share/GeoIP
@@ -63,8 +62,8 @@ RUN mkdir -p /var/www/html/app/webroot
 RUN echo "<?php phpinfo() ?>" > /var/www/html/app/webroot/index.php
 
 # Configure Xdebug
-RUN echo "xdebug.remote_enable=on" >> /etc/php/5.6/mods-available/xdebug.ini
-RUN echo "xdebug.remote_connect_back=on" >> /etc/php/5.6/mods-available/xdebug.ini
+RUN echo "xdebug.remote_enable=on" >> /etc/php/7.0/mods-available/xdebug.ini
+RUN echo "xdebug.remote_connect_back=on" >> /etc/php/7.0/mods-available/xdebug.ini
 
 # Expose ports.
 EXPOSE 80
@@ -74,4 +73,4 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Define default command.
-CMD service php5.6-fpm start && nginx
+CMD service php-fpm start && nginx
